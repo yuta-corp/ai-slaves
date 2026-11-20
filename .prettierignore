@@ -4,5 +4,7 @@ lib/generated/
 .next/
 .turbo/
 coverage/
+test-results/
+playwright-report/
 pnpm-lock.yaml
 .pnpm-store/
