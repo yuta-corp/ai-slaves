@@ -1,0 +1,57 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum AgentRole {
+  MANAGER
+  PROJECT_MANAGER
+  FULLSTACK_DEV
+  BACKEND_DEV
+}
+
+enum AgentStatus {
+  IDLE
+  WORKING
+  OFFLINE
+}
+
+model User {
+  id        String    @id @default(cuid())
+  email     String    @unique
+  name      String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  projects  Project[]
+}
+
+model Project {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  ownerId     String?
+  owner       User?    @relation(fields: [ownerId], references: [id], onDelete: SetNull)
+  agents      Agent[]
+
+  @@index([ownerId])
+}
+
+model Agent {
+  id        String      @id @default(cuid())
+  name      String
+  role      AgentRole
+  status    AgentStatus @default(IDLE)
+  model     String
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  projectId String?
+  project   Project?    @relation(fields: [projectId], references: [id], onDelete: SetNull)
+
+  @@index([projectId])
+}
