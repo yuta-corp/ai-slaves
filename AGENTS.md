@@ -1,6 +1,6 @@
 <!-- BEGIN:nextjs-agent-rules -->
 
-# This is NOT the Next.js you know
+## This is NOT the Next.js you know
 
 This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
 
@@ -39,7 +39,9 @@ Run before every commit/PR: `pnpm format && pnpm lint && pnpm typecheck && pnpm 
 
 ## Testing
 
-Unit, integration, and E2E tests are required by project rules. No test runner is installed yet — add one when the first test lands and wire a `pnpm test` script.
+- `pnpm test` — Vitest: unit (`tests/unit`) + integration (`tests/integration`, hits the local DB; skipped without `DATABASE_URL`)
+- `pnpm test:e2e` — Playwright (`tests/e2e`); it starts the dev server itself
+- Run one file: `pnpm exec vitest run <file>` or `pnpm exec playwright test <file>`
 
 ## UI components
 
