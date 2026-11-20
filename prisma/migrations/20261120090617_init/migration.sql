@@ -44,6 +44,12 @@ CREATE TABLE "Agent" (
 -- CreateIndex
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
+-- CreateIndex
+CREATE INDEX "Project_ownerId_idx" ON "Project"("ownerId");
+
+-- CreateIndex
+CREATE INDEX "Agent_projectId_idx" ON "Agent"("projectId");
+
 -- AddForeignKey
 ALTER TABLE "Project" ADD CONSTRAINT "Project_ownerId_fkey" FOREIGN KEY ("ownerId") REFERENCES "User"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 

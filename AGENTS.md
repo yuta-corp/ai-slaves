@@ -15,7 +15,7 @@ Internal AI platform for Utah Corporation: one workspace that centralizes all co
 ## Stack
 
 - Next.js 16 App Router + React 19, strict TypeScript, Tailwind CSS v4 (theme in `app/globals.css`)
-- Prisma is the decided ORM — not installed yet
+- Prisma 7 ORM with the `@prisma/adapter-pg` driver adapter; schema in `prisma/schema.prisma`, generated client in `lib/generated/prisma`
 - NVIDIA NIM is the only AI model provider — never wire up another
 - pnpm only, never npm/yarn
 - shadcn/ui, style `base-nova` on @base-ui/react, lucide icons (see `components.json`); alias `@/*` → repo root
@@ -31,6 +31,11 @@ pnpm build       # next build, also type-checks
 ```
 
 Run before every commit/PR: `pnpm format && pnpm lint && pnpm typecheck && pnpm build`.
+
+## Database
+
+- Copy `.env.example` to `.env` first; `DATABASE_URL` points at the local `slaves` Postgres database.
+- `pnpm db:migrate` (prisma migrate dev), `pnpm db:generate`, `pnpm db:studio`. Client is generated on install into `lib/generated/prisma` (gitignored).
 
 ## Testing
 
